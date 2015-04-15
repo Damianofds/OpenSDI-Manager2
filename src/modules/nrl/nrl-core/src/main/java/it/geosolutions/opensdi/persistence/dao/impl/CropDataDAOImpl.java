@@ -69,4 +69,9 @@ public String[] getPKNames() {
     return PKNames;
 }
 
+@Override
+protected Class<CropData> getEntityType() {
+    return CropData.class;
+}
+
 }
