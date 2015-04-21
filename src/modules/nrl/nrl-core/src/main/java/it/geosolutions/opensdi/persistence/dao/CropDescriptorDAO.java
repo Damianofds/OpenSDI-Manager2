@@ -21,9 +21,9 @@
  */
 package it.geosolutions.opensdi.persistence.dao;
 
-import com.googlecode.genericdao.dao.jpa.GenericDAO;
-
 import it.geosolutions.opensdi.model.CropDescriptor;
+
+import com.googlecode.genericdao.dao.jpa.GenericDAO;
 
 
 
