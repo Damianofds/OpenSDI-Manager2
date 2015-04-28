@@ -26,7 +26,6 @@ import it.geosolutions.opensdi.model.CropData;
 import it.geosolutions.opensdi.persistence.dao.CropDataDAO;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
