@@ -70,8 +70,6 @@ public T searchByPK(Serializable... pkObjects){
  */
 public T searchByPK(String[] names, Serializable... pkObjects){
     T found = null;
-    LOGGER.info("names     - length: '" + names.length + "'; content: '" + names.toString() + "'");
-    LOGGER.info("pkObjects - length: '" + pkObjects.length + "'; content: '" + pkObjects.toString() + "'");
     // Check if correct pkObjects
     if (names != null && pkObjects != null && pkObjects.length == names.length) {
         Search search = new Search(persistentClass);
