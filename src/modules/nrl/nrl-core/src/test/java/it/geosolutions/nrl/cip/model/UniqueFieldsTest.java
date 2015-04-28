@@ -36,7 +36,7 @@ public class UniqueFieldsTest extends Assert{
     public void getCropDataUniqueFieldsTest(){
         
         BaseDAO cropDataDAO = new CropDataDAOImpl();
-        assertEquals(4,cropDataDAO.getPKNames().length);
+        assertEquals(5,cropDataDAO.getPKNames().length);
     }
     
     @Test

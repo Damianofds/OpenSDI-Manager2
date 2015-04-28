@@ -20,7 +20,7 @@ import org.hibernate.annotations.Index;
 
 @Entity(name = "CropData")
 @Table(name = "cropdata", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"crop" , "district" , "province" , "year"})})
+    @UniqueConstraint(columnNames = {"crop" , "district" , "province" , "year", "src"})})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "cropdata")
 @XmlRootElement(name = "CropData")
 public class CropData {
@@ -34,7 +34,7 @@ public class CropData {
     @ForeignKey(name = "crop_type")
     private CropDescriptor cropDescriptor;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = false)
     private String district; //district character varying(255) NOT NULL,
     @Column(nullable = false, updatable = false)
     private String province;// character varying(255) NOT NULL,
@@ -53,6 +53,9 @@ public class CropData {
 
     @Column
     private Double yield;// double precision,
+    
+    @Column
+    private String src;
 
     @PrePersist
     @PreUpdate
@@ -132,6 +135,14 @@ public class CropData {
 
     public void setYield(Double yield) {
         this.yield = yield;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 
     @Override

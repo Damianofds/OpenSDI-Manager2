@@ -26,7 +26,10 @@ import it.geosolutions.opensdi.model.CropData;
 import it.geosolutions.opensdi.persistence.dao.CropDataDAO;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -37,6 +40,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CropDataDAOImpl extends BaseDAO<CropData, Long> implements
         CropDataDAO {
 
+private final static Logger LOGGER = LoggerFactory.getLogger(CropDataDAOImpl.class);    
+    
+private String src = null;
+    
 @Override
 public void persist(CropData... entities) {
     super.persist(entities);
@@ -57,7 +64,7 @@ public boolean removeById(Long id) {
     return super.removeById(id);
 }
 
-private static String[] PKNames = { "cropDescriptor.id", "district", "province", "year" };
+private static String[] PKNames = { "cropDescriptor.id", "district", "province", "year", "src" };
 
 /**
  * Obtain array for the pknames ordered to be used in
@@ -72,6 +79,32 @@ public String[] getPKNames() {
 @Override
 protected Class<CropData> getEntityType() {
     return CropData.class;
+}
+
+// WORKAROUND Overriding these 2 methods in order to add src to the pk names... the value of src is not extracted from the CSV but passed from the interface
+@Override
+public CropData searchByPK(Serializable... pkObjects){
+    return searchByPK(getPKNames(), addNewPKey(pkObjects, src));
+}
+
+@Override
+public boolean removeByPK(Serializable... pkObjects){
+    return removeByPK(getPKNames(), addNewPKey(pkObjects, src));
+}
+
+private Serializable[] addNewPKey(Serializable[] pkObjects, String src){
+    if(src == null){
+        throw new IllegalArgumentException("The datasource organization name is missing...");
+    }
+    if(pkObjects[pkObjects.length-1] == null){
+        pkObjects[pkObjects.length-1] = src;
+    }
+    return pkObjects;
+}
+
+@Override
+public void setSrc(String src) {
+    this.src = src;
 }
 
 }
